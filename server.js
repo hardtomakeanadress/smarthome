@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
+  //we need to render only the body
   res.render('home');
 });
 
@@ -27,22 +28,17 @@ app.get('/figure', (req, res) => {
 })
 
 app.post('/post', (req, res) => {
-  var responseCode = "400";
-  if (!validateData(req)) {
-    saveData(req);
-    responseCode = "200";
-  }
-  res.send(responseCode);
+  postRequestHandler(req, res);  
 });
 
 function saveData(req, error) {
-  var date        = moment().format();
+  var dateTime    = moment().format();
   var temperature = req.body.temperature;
   var humidity    = req.body.humidity;
   var voltage     = req.body.voltage;
   var rawData     = 
     {
-      "date" : date,
+      "datetime" : dateTime,
       "error": error,
       "temperature": temperature,
       "humidity": humidity,
@@ -64,7 +60,16 @@ function validateData(req) {
     error = true;
   }
   return error;
-  
+}
+
+function postRequestHandler(req, res) {
+  var responseCode = "400";
+  var error        = validateData(req);
+  if (!error) {
+    saveData(req);
+    responseCode = "200";
+  }
+  res.send(responseCode);
 }
 
 app.listen(port);
