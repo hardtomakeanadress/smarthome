@@ -1,0 +1,67 @@
+body {
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed';
+    font-size: 22px;
+    line-height: 1.8;
+    margin: 0px;
+    text-align: center;
+
+}
+
+.logo {
+    border: 2px solid #38FF00;
+    border-radius: 30px;
+    margin: 25px;
+    padding: 40px;
+}
+
+main {
+    margin: 0 auto;
+    width: 800px;
+    border: 2px solid #38FF00;
+    border-radius: 30px;
+}
+
+.clearfix::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.navbar-container a {
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+}
+
+figure {
+    border: 2px solid lightgray;
+    border-radius: 30px;
+    opacity: 0.7;
+    padding: 10px;
+}
+
+figure:hover {
+    border: 2px solid #38FF00;
+    box-shadow: 10px 10px 5px lightgray;
+    background-color: #EAFFEA;
+    opacity: 1.0;
+}
+
+figure:active {
+    border: 2px solid red;
+    box-shadow: 10px 10px 5px lightgray;
+    opacity: 1.0;
+    /* background-color: lightgreen; */
+}
+
+
+
