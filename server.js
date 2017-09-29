@@ -6,8 +6,8 @@ var moment     = require('moment');
 var app        = express();
 var port       = 80;
 
-var rawdata_file    = fs.readFileSync('db.json');
-var database   = JSON.parse(rawdata_file);
+var rawdata_file = fs.readFileSync('db.json');
+var database     = JSON.parse(rawdata_file);
 
 // set the view engine to ejs
 app.set('view engine', 'ejs')
@@ -18,13 +18,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-  //we need to render only the body
   res.render('home');
 });
 
 app.get('/figure', (req, res) => {
-  var id = req.query.id;
-  res.render(id);
+  var id      = req.query.id;
+  res.render(String(id), {values: database.temperature});
 })
 
 app.post('/post', (req, res) => {
