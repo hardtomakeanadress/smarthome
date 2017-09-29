@@ -11,15 +11,16 @@ body {
 .logo {
     border: 2px solid #38FF00;
     border-radius: 30px;
-    margin: 25px;
-    padding: 40px;
+    margin: 5px;
+    padding: 20px;
 }
 
 main {
-    margin: 0 auto;
-    width: 800px;
     border: 2px solid #38FF00;
     border-radius: 30px;
+    margin: 0 auto;
+    width: 800px;
+    
 }
 
 .clearfix::after {
@@ -36,10 +37,9 @@ main {
     float: right;
 }
 
-.navbar-container a {
-    text-decoration: none;
-    color: white;
-    padding: 5px;
+.env {
+    width: 50%;
+    margin: 0 auto;
 }
 
 figure {
@@ -60,7 +60,6 @@ figure:active {
     border: 2px solid red;
     box-shadow: 10px 10px 5px lightgray;
     opacity: 1.0;
-    /* background-color: lightgreen; */
 }
 
 

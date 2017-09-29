@@ -6,8 +6,7 @@ var moment     = require('moment');
 var app        = express();
 var port       = 80;
 
-var rawdata_file = fs.readFileSync('db.json');
-var database     = JSON.parse(rawdata_file);
+
 
 // set the view engine to ejs
 app.set('view engine', 'ejs')
@@ -22,8 +21,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/figure', (req, res) => {
-  var id      = req.query.id;
-  res.render(String(id), {values: database.temperature});
+  var id       = req.query.id;
+  var database = getData(database);
+  
+  res.render(String(id), {temperature: database.temperature,
+                          humidity: database.humidity,
+                          voltage: database.voltage,
+                          datetime: database.datetime});
 })
 
 app.post('/post', (req, res) => {
@@ -31,7 +35,7 @@ app.post('/post', (req, res) => {
 });
 
 function saveData(req, error) {
-  var dateTime    = moment().format();
+  var dateTime    = moment().format('MMMM Do YYYY, h:mm:ss a');
   var temperature = req.body.temperature;
   var humidity    = req.body.humidity;
   var voltage     = req.body.voltage;
@@ -69,6 +73,12 @@ function postRequestHandler(req, res) {
     responseCode = "200";
   }
   res.send(responseCode);
+}
+
+function getData(database) {
+  var rawdata_file = fs.readFileSync('db.json');
+  var database     = JSON.parse(rawdata_file);
+  return database;
 }
 
 app.listen(port);
