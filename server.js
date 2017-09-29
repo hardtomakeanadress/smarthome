@@ -28,14 +28,14 @@ app.get('/figure', (req, res) => {
                           humidity: database.humidity,
                           voltage: database.voltage,
                           datetime: database.datetime});
-})
+});
 
 app.post('/post', (req, res) => {
   postRequestHandler(req, res);  
 });
 
 function saveData(req, error) {
-  var dateTime    = moment().format('MMMM Do YYYY, h:mm:ss a');
+  var dateTime    = moment().format('h:mm:ss a, Do MMMM');
   var temperature = req.body.temperature;
   var humidity    = req.body.humidity;
   var voltage     = req.body.voltage;
@@ -46,7 +46,7 @@ function saveData(req, error) {
       "temperature": temperature,
       "humidity": humidity,
       "voltage": voltage
-    }
+    };
   var data = JSON.stringify(rawData);
 
   fs.writeFileSync('db.json', data);
@@ -63,7 +63,7 @@ function validateData(req) {
     error = true;
   }
   return error;
-}
+};
 
 function postRequestHandler(req, res) {
   var responseCode = "400";
