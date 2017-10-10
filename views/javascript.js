@@ -5,8 +5,9 @@ $("body").on( "click", "#back", function(event) {
 $('figure').click( function(arg) {
     var id = this.id;
     $.get('/figure?id=' + id, function(data, status){
-        $("main").empty();
+        
         if (data) {
+            $("main").empty();
             $("main").append(data);
         }
     });
