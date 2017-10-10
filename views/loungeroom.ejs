@@ -1,21 +1,40 @@
-<article class="clearfix">
-    <section class="pull-left">
-        <figure id="back">
+<article>
+    <section class="clearfix">
+        <figure class="pull-left" id="back">
             <img src="images/back-icon.png" alt="back icon" width="50px" height="auto">
             <figcaption>Back</figcaption>
         </figure>
-    </section>
-    <section class="pull-right">
-        <figure>
-            <img src="images/loungeroom.png" alt="loungeroom icon" width="150px" height="auto">
+        <figure class="pull-right">
+            <img src="images/loungeroom.png" alt="lounge room icon" width="150px" height="auto">
             <figcaption>Lounge room</figcaption>
         </figure>
-    </section>
-    <section>
-        <h1>
-            Lounge room page
-        </h1>
+	</section>
+	<section class="env">
+		<table>
+			<thead>
+				<tr>
+					<th>Sensor</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><img src="images/environmental/temperature.png" alt="temperature icon" width="50px" height="100px"></td>
+					<td><spam><%= temperature %></spam><span>&#8451;</span></td>
+				</tr>
+				<tr>
+					<td><img src="images/environmental/humidity.png" alt="humidity icon" width="50px" height="50px"></td>
+					<td><spam><%= humidity %></spam><span>%</span></td>
+				</tr>
+				<tr>
+					<td><img src="images/environmental/voltage.png" alt="battery icon" width="50px" height="100px"></td>
+					<td><spam><%= voltage %></spam><span>V</span></td>
+				</tr>
+				<tr>
+					<td><img src="images/environmental/datetime.png" alt="calendar icon" width="50px" height="50px"></td>
+					<td><spam><%= datetime %></spam></td>
+				</tr>
+			</tbody>		
+		</table>	
     </section>
 </article>
-
-
