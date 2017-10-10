@@ -23,9 +23,13 @@ app.get('/', (req, res) => {
 app.get('/figure', (req, res) => {
 	var id       = req.query.id,
 		database = getData(database);
+		room     = getRoom(id);
   //by id, it should be a function that retrives from db , that particular room status().
   //rooms are diferent, so we replace the rendered information with a particular room object;
   // every room should have own databse.
+
+	// getRoom(id);        res.render(String(id), room) 
+
 	res.render(String(id), {temperature: database.temperature,
                             humidity: database.humidity,
                             voltage: database.voltage,
@@ -80,6 +84,10 @@ function getData(database) {
 	var rawdata_file = fs.readFileSync('db.json'),
   		database     = JSON.parse(rawdata_file);
   	return database;
+}
+
+function getRoom(roomId) {
+
 }
 
 app.listen(port);
