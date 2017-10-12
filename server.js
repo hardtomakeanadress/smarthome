@@ -29,11 +29,14 @@ app.get('/figure', (req, res) => {
   // every room should have own databse.
 
 	// getRoom(id);        res.render(String(id), room) 
-    //comment[name] ~ comment.name iar [name] poate fi o variabila
-	res.render(String(id), {temperature: database.temperature,
-                            humidity: database.humidity,
-                            voltage: database.voltage,
-                            datetime: database.datetime});
+	//comment[name] ~ comment.name iar [name] poate fi o variabila
+	
+	// res.render(String(id), {temperature: database.temperature,
+    //                         humidity: database.humidity,
+    //                         voltage: database.voltage,
+	//                         datetime: database.datetime});
+	// res.render(String(id), getRoomObject(id));
+	console.log(getRoomObject(id));
 });
 
 app.post('/post', (req, res) => {
@@ -86,8 +89,24 @@ function getData(database) {
   	return database;
 }
 
-function getRoom(roomId) {
-
+function getRoomObject(roomId) {
+	const rooms = {
+		bathroom: {
+			temperature:20,
+			humidity:79,
+			fan:"on"
+		},
+		bedroom: {
+			ledLamp:"on",
+			temperature:24,
+			soundSystem:"off"
+		},
+		diningroom:{
+			soilSensor:60,
+			floodSensor:false
+		}
+	}
+	return rooms[roomId];
 }
 
 app.listen(port);
