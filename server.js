@@ -21,8 +21,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/figure', (req, res) => {
-	var id       = req.query.id,
-		database = getData(database);
+
+	var roomId = req.query.id,
+		data   = getData(roomId);
+		// console.log(database);
 		// room     = getRoom(id);
   //by id, it should be a function that retrives from db , that particular room status().
   //rooms are diferent, so we replace the rendered information with a particular room object;
@@ -31,33 +33,26 @@ app.get('/figure', (req, res) => {
 	// getRoom(id);        res.render(String(id), room) 
 	//comment[name] ~ comment.name iar [name] poate fi o variabila
 	
-	// res.render(String(id), {temperature: database.temperature,
-    //                         humidity: database.humidity,
-    //                         voltage: database.voltage,
-	//                         datetime: database.datetime});
+	res.render(String(roomId), data || {});
 	// res.render(String(id), getRoomObject(id));
-	console.log(getRoomObject(id));
+	// console.log(getRoomObject(id));
 });
 
 app.post('/post', (req, res) => {
 	postRequestHandler(req, res);  
 });
 
-function saveData(req, error) {
-	var dateTime    = moment().format('h:mm:ss a, Do MMMM'),
-      	temperature = req.body.temperature,
-  	  	humidity    = req.body.humidity,
-      	voltage     = req.body.voltage,
-      	rawData     = {
-      		"datetime" : dateTime,
-      		"error": error,
-      		"temperature": temperature,
-      		"humidity": humidity,
-      		"voltage": voltage
-    	};
-  	var data = JSON.stringify(rawData);
+function saveData(req) {
+	var id      = req.body.id, 
+      	rawData = {
+      		"datetime" : moment().format('h:mm:ss a, Do MMMM'),
+      		"temperature": req.body.temperature,
+      		"humidity": req.body.humidity,
+      		"voltage": req.body.voltage},
+  		data   = JSON.stringify(rawData),
+		dbFile = String(id) + ".json";	
 
-  	fs.writeFileSync('db.json', data);
+  	fs.writeFileSync(dbFile, data);
 }
 
 function validateData(req) {
@@ -83,30 +78,42 @@ function postRequestHandler(req, res) {
   	res.send(responseCode);
 }
 
-function getData(database) {
-	var rawdata_file = fs.readFileSync('db.json'),
-  		database     = JSON.parse(rawdata_file);
-  	return database;
+function getData(roomId) {
+	var id            = String(roomId) + ".json";
+
+	try {
+		raw_data_file = fs.readFileSync(id);
+	  } 
+	catch (err) {
+		if (err.code === 'ENOENT') {
+			console.log('File not found!');
+		  } else {
+			throw err;
+		  }
+	  }
+
+  	var data = JSON.parse(raw_data_file);
+  	return data;
 }
 
-function getRoomObject(roomId) {
-	const rooms = {
-		bathroom: {
-			temperature:20,
-			humidity:79,
-			fan:"on"
-		},
-		bedroom: {
-			ledLamp:"on",
-			temperature:24,
-			soundSystem:"off"
-		},
-		diningroom:{
-			soilSensor:60,
-			floodSensor:false
-		}
-	}
-	return rooms[roomId];
-}
+// function getRoomObject(roomId) {
+// 	const rooms = {
+// 		bathroom: {
+// 			temperature:20,
+// 			humidity:79,
+// 			fan:"on"
+// 		},
+// 		bedroom: {
+// 			ledLamp:"on",
+// 			temperature:24,
+// 			soundSystem:"off"
+// 		},
+// 		diningroom:{
+// 			soilSensor:60,
+// 			floodSensor:false
+// 		}
+// 	}
+// 	return rooms[roomId];
+// }
 
 app.listen(port);
