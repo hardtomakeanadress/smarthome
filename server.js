@@ -4,7 +4,7 @@ var express    = require('express'),
     fs         = require('fs'),
     moment     = require('moment'),
     app        = express(),
-    port       = 80;
+    port       = 8080;
 
 
 
